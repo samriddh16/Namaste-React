@@ -21,13 +21,31 @@ const Body = () => {
 
     return (
         <>
+            <div className="filter">
+                <button
+                    className="filter-btn"
+                    onClick={() => {
+                        //filter logic
+                        const filteredList = restaurants.filter(
+                            (res) => res.data.avgRating > 4
+                        );
+                        filteredList.sort((a,b)=> b.data.avgRating - a.data.avgRating);
+                        setRestaurants(filteredList);
+                        // console.log(listOfRestaurants);
+                    }}
+                >
+                    Top Rated Restaurants
+                </button>
+            </div>
+
             <div className="search-container">
                 <form action="" onSubmit={(e) => e.preventDefault()}>
                     <input
                         type="text"
                         className="search-input"
                         placeholder="Search"
-                        onChange={(e) => {setSearchText(e.target.value)
+                        onChange={(e) => {
+                            setSearchText(e.target.value)
                             const data = filteredRestaurants(searchText);
                             setRestaurants(data);
                         }}
@@ -48,7 +66,7 @@ const Body = () => {
             <div className="restaurant-list">
                 {restaurants.map((restaurant) => {
                     return (
-                        <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+                        <RestaurantCard {...restaurant.data} key={restaurant.data.id}/>
                     );
                 })}
             </div>
