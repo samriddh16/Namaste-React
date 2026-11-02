@@ -1,4 +1,3 @@
-import React from "react";
 import {CDN_URL} from "../Utils/constant";
 
 const RestaurantCard = ({
@@ -8,24 +7,32 @@ const RestaurantCard = ({
                            cuisines,
                            lastMileTravelString,
                            costForTwoString,
-                           address,
                            avgRating,
                        }) => {
     return (
-        <div className="card">
-            <img
-                src={
-                    CDN_URL+
-                    cloudinaryImageId
-                }
-            />
-            <div className="ratings">
-                <p>{name}</p>
-                <p style={avgRating > 3 ? {color:"green"}:{color:"red"} }>{avgRating}</p>
+        <div className="card-details">
+            <div className="card">
+                <img src={CDN_URL + cloudinaryImageId} />
+                <div className="ratings">
+                    <p>
+                        <strong>{name}</strong>
+                    </p>
+                </div>
+                <small>{cuisines.join(", ")}</small> <br /> <br />
+                <p
+                    style={{
+                        margin: "0",
+                        display: "flex",
+                        justifyContent: "space-around",
+                    }}
+                >
+                    <small style={avgRating > 3 ? { color: "green" } : { color: "red" }}>
+                        {avgRating}
+                    </small>
+                    <small>{lastMileTravelString}</small>{" "}
+                    <small>{costForTwoString}</small>
+                </p>
             </div>
-            <p>{costForTwoString}</p>
-            <p>{cuisines.join(", ")}</p>
-            <p>{lastMileTravelString} minutes</p>
         </div>
     );
 };
