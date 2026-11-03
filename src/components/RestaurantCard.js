@@ -1,40 +1,29 @@
-import {CDN_URL} from "../Utils/constant";
+import { CDN_URL } from "../Utils/constant";
 
-const RestaurantCard = ({
-                           name,
-                           cloudinaryImageId,
-                           area,
-                           cuisines,
-                           lastMileTravelString,
-                           costForTwoString,
-                           avgRating,
-                       }) => {
+const styleCard = {
+    backgroundColor: "#D3D3D3",
+};
+const RestaurantCard = (props) => {
+    const { resData } = props;
+    // console.log("working");
+    const { name, cloudinaryImageId, cuisines, avgRating, costForTwo, sla } =
+        resData?.info;
+
+    console.log("Restaurant data:", resData);
+    console.log("Restaurant info:", resData?.info);
     return (
-        <div className="card-details">
-            <div className="card">
-                <img src={CDN_URL + cloudinaryImageId} />
-                <div className="ratings">
-                    <p>
-                        <strong>{name}</strong>
-                    </p>
-                </div>
-                <small>{cuisines.join(", ")}</small> <br /> <br />
-                <p
-                    style={{
-                        margin: "0",
-                        display: "flex",
-                        justifyContent: "space-around",
-                    }}
-                >
-                    <small style={avgRating > 3 ? { color: "green" } : { color: "red" }}>
-                        {avgRating}
-                    </small>
-                    <small>{lastMileTravelString}</small>{" "}
-                    <small>{costForTwoString}</small>
-                </p>
-            </div>
+        <div className="res-card" style={styleCard}>
+            <img
+                className="res-logo"
+                alt="res-logo"
+                src={CDN_URL + cloudinaryImageId}
+            />
+            <h3>{name}</h3>
+            <h4>{cuisines.join(", ")}</h4>
+            <h4>{avgRating}Stars</h4>
+            <h4>₹{costForTwo}</h4>
+            <h4>{sla.slaString}</h4>
         </div>
     );
 };
-
 export default RestaurantCard;
