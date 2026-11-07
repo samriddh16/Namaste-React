@@ -17,10 +17,10 @@ const Body = () => {
 
     const fetchData = async () => {
         const data = await fetch(
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=20.3488714&lng=85.8164791&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.61610&lng=73.72860&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         );
         const json = await data.json();
-        console.log(json);
+        // console.log(json);
 
         setListOfRestaurants(
             //Optional Chaining
@@ -33,7 +33,6 @@ const Body = () => {
     };
 
     const styleCard = {
-
         border: "1px solid black",
         margin: "20px",
         padding: "10px",
@@ -49,22 +48,23 @@ const Body = () => {
     // if (listOfRestaurants.length === 0) {
     //   return <Shimmer />;
     // }
-    {console.log(filteredRestaurant[0]?.info?.id)}
+
     return listOfRestaurants.length === 0 ? (
         <Shimmer />
     ) : (
         <div className="body">
-            <div className="filter">
-                <div className="Search">
+            <div className="filter flex justify-center">
+                <div className="Search m-4 p-4">
                     <input
                         type="text"
-                        className="Search-box"
+                        className="border border-solid border-black  "
                         value={searchText}
                         onChange={(e) => {
                             setSearchText(e.target.value);
                         }}
                     />
                     <button
+                        className="px-4 py-1 bg-orange-400 m-3 rounded-lg hover:bg-orange-600"
                         onClick={() => {
                             const filteredRestaurant = listOfRestaurants.filter((res) =>
                                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -75,21 +75,23 @@ const Body = () => {
                         Search
                     </button>
                 </div>
-                <button
-                    className="filter-btn"
-                    onClick={() => {
-                        //filter logic
-                        const filteredList = listOfRestaurants.filter(
-                            (res) => res.info.avgRating > 4
-                        );
-                        setFilteredRestaurant(filteredList);
-                        // console.log(listOfRestaurants);
-                    }}
-                >
-                    Top Rated Restaurants
-                </button>
+                <div className="Search m-4 p-4 flex items-center">
+                    <button
+                        className="px-4 py-1 bg-gray-300 rounded-lg hover:bg-gray-500"
+                        onClick={() => {
+                            //filter logic
+                            const filteredList = listOfRestaurants.filter(
+                                (res) => res.info.avgRating > 4
+                            );
+                            setFilteredRestaurant(filteredList);
+                            // console.log(listOfRestaurants);
+                        }}
+                    >
+                        Top Rated Restaurants
+                    </button>
+                </div>
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap items-center ml-32 mr-32 ">
                 {filteredRestaurant.map((restaurant) => (
                     <Link
                         key={restaurant?.info?.id}
